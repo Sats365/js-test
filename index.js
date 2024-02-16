@@ -27,9 +27,25 @@ function renderTree(node, parentElement) {
   if (!node || node.length === 0) return;
 
   const ul = document.createElement("ul");
+
   node.forEach((child) => {
     const li = document.createElement("li");
-    li.textContent = `${child.name} (Цена: ${child.price}руб.)`;
+    const div = document.createElement("div");
+    div.textContent = `${child.name} (Цена: ${child.price}руб.)`;
+
+    if (child.node) div.style.cursor = "pointer";
+    div.addEventListener("click", () => {
+      if (!child.node) return;
+
+      const ul = div.nextSibling;
+      if (ul.style.display == "none") {
+        ul.style.display = "";
+      } else {
+        ul.style.display = "none";
+      }
+    });
+
+    li.appendChild(div);
     ul.appendChild(li);
 
     if (child.children && child.children.length > 0) {
