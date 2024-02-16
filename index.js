@@ -23,6 +23,18 @@ function buildTree(services) {
   return rootServices;
 }
 
+function hiddenChildren(div) {
+  div.className = "node";
+  div.addEventListener("click", () => {
+    const ul = div.nextSibling;
+    if (ul.style.display == "none") {
+      ul.style.display = "";
+    } else {
+      ul.style.display = "none";
+    }
+  });
+}
+
 function renderTree(node, parentElement) {
   if (!node || node.length === 0) return;
 
@@ -33,17 +45,7 @@ function renderTree(node, parentElement) {
     const div = document.createElement("div");
     div.textContent = `${child.name} (Цена: ${child.price}руб.)`;
 
-    if (child.node) div.style.cursor = "pointer";
-    div.addEventListener("click", () => {
-      if (!child.node) return;
-
-      const ul = div.nextSibling;
-      if (ul.style.display == "none") {
-        ul.style.display = "";
-      } else {
-        ul.style.display = "none";
-      }
-    });
+    if (child.node) hiddenChildren(div);
 
     li.appendChild(div);
     ul.appendChild(li);

@@ -1,0 +1,8 @@
+.node {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.node:hover {
+  background: rgb(214, 214, 214);
+}
